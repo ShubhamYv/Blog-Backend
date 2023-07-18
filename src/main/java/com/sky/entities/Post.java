@@ -10,9 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "post")
+@Table(name = "posts")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +31,7 @@ public class Post {
 	private String imageName;
 	@Column(name = "post_added_date")
 	private Date addedDate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
