@@ -33,7 +33,10 @@ public class User {
 	private String password;
 	@Column(name = "about_user", nullable = false, length = 500)
 	private String about;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Post> post= new ArrayList<>();
+	private List<Post> post = new ArrayList<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Comment> comments = new ArrayList<>();
 }

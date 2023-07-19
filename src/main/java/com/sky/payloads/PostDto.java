@@ -1,6 +1,8 @@
 package com.sky.payloads;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -27,4 +29,6 @@ public class PostDto {
 	private CategoryDto category;
 	@NotEmpty
 	private UserDto user;
+	@NotEmpty
+	private List<CommentDto> comments = new ArrayList<>();
 }
