@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sky.payloads.ApiResponse;
 import com.sky.payloads.PostDto;
+import com.sky.payloads.PostResponse;
 import com.sky.services.PostService;
 
 @RestController
@@ -49,9 +51,13 @@ public class PostController {
 
 	// get all posts
 	@GetMapping("/posts")
-	public ResponseEntity<List<PostDto>> getAllPost() {
-		List<PostDto> allPost = this.postService.getAllPost();
-		return new ResponseEntity<List<PostDto>>(allPost, HttpStatus.OK);
+	public ResponseEntity<PostResponse> getAllThePosts(
+			@RequestParam(value = "pageNum", defaultValue = "0", required = false) Integer pageNum,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir) {
+		PostResponse postResponse = this.postService.getAllPosts(pageNum, pageSize, sortBy, sortDir);
+		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 
 	// get single post--> by id
@@ -74,5 +80,12 @@ public class PostController {
 		PostDto updatePost = this.postService.updatePost(postDto, postId);
 		return new ResponseEntity<PostDto>(updatePost, HttpStatus.OK);
 
+	}
+
+	// search
+	@GetMapping("/posts/search/{keywords}")
+	public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable String keywords) {
+		List<PostDto> result = this.postService.searchPosts(keywords);
+		return new ResponseEntity<List<PostDto>>(result, HttpStatus.OK);
 	}
 }

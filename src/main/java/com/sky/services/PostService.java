@@ -1,9 +1,8 @@
 package com.sky.services;
 
 import java.util.List;
-
-import com.sky.entities.Post;
 import com.sky.payloads.PostDto;
+import com.sky.payloads.PostResponse;
 
 public interface PostService {
 
@@ -20,7 +19,7 @@ public interface PostService {
 	PostDto getPostById(Integer postId);
 
 	// get all
-	List<PostDto> getAllPost();
+	PostResponse getAllPosts(Integer pageNum, Integer pageSize, String sortBy, String sortDir);
 
 	// get all post by category
 	List<PostDto> getPostByCategory(Integer categoryId);
