@@ -1,7 +1,11 @@
 package com.sky.payloads;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.sky.entities.Role;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -33,4 +37,7 @@ public class UserDto {
 
 	@NotEmpty
 	private List<CommentDto> comments = new ArrayList<>();
+	
+	@NotEmpty
+	private Set<RoleDto> roles = new HashSet<>();
 }

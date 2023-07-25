@@ -34,10 +34,14 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/auth/login").permitAll()
-						.requestMatchers("/api/v1/auth/**").permitAll().requestMatchers("/v3/api-docs/**").permitAll()
-						.requestMatchers("/v2/api-docs/**").permitAll().requestMatchers("/swagger-resources/**")
-						.permitAll().requestMatchers("/swagger-ui/**").permitAll().requestMatchers("/webjars/**")
-						.permitAll().requestMatchers(HttpMethod.GET).permitAll().anyRequest().authenticated())
+						.requestMatchers("/api/v1/auth/**").permitAll()
+						.requestMatchers("/v3/api-docs/**").permitAll()
+						.requestMatchers("/v2/api-docs/**").permitAll()
+						.requestMatchers("/swagger-resources/**").permitAll()
+						.requestMatchers("/swagger-ui/**").permitAll()
+						.requestMatchers("/webjars/**").permitAll()
+						.requestMatchers(HttpMethod.GET).permitAll()
+						.anyRequest().authenticated())
 				.exceptionHandling(ex -> ex.authenticationEntryPoint(this.jwtAuthenticationEntryPoint))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
