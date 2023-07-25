@@ -1,10 +1,11 @@
 package com.sky.controllers;
 
-import java.util.List; 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sky.payloads.ApiResponse;
 import com.sky.payloads.UserDto;
 import com.sky.services.UserService;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -42,7 +42,9 @@ public class UserController {
 		return ResponseEntity.ok(updatedUser);
 	}
 
+	// ADMIN
 	// Delete Method---> Delete User
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Integer uid) {
 		this.userService.deleteUser(uid);
