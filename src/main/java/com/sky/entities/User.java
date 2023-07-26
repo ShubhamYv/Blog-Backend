@@ -42,7 +42,7 @@ public class User implements UserDetails {
 	private Integer id;
 	@Column(name = "user_name", nullable = false, length = 100)
 	private String name;
-	@Column(name = "email_id", nullable = false)
+	@Column(name = "email_id", nullable = false, unique = true)
 	private String email;
 	@Column(nullable = false)
 	private String password;
@@ -52,8 +52,8 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Post> post = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Comment> comments = new ArrayList<>();
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	private List<Comment> comments = new ArrayList<>();
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
